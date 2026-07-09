@@ -1,0 +1,1787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ER. Riasat Ahamed — Building Planner & Structural Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --secondary: #1e293b;
+            --accent: #0f3460;
+            --gold: #c9a96e;
+            --gold-light: #e8d5a3;
+            --light: #f8f9fa;
+            --white: #ffffff;
+            --text: #334155;
+            --text-light: #64748b;
+            --text-muted: #94a3b8;
+            --border: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            --radius: 0.5rem;
+            --radius-lg: 1rem;
+            --radius-xl: 1.5rem;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text);
+            line-height: 1.7;
+            background: var(--white);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        ::selection { background: var(--gold); color: var(--white); }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--light); }
+        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #b8985a; }
+
+        /* ===== NAVIGATION ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            z-index: 1000;
+            padding: 0 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 72px;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+            transition: var(--transition);
+        }
+
+        nav.scrolled {
+            box-shadow: var(--shadow);
+            height: 64px;
+        }
+
+        .logo {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.35rem;
+            font-weight: 400;
+            color: var(--primary);
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .logo:hover { color: var(--gold); }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.875rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: var(--transition);
+            position: relative;
+            padding: 0.25rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1.5px;
+            background: var(--gold);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-links a:hover { color: var(--gold); }
+        .nav-links a:hover::after { width: 100%; }
+
+        .nav-cta {
+            background: var(--gold);
+            color: var(--white) !important;
+            padding: 0.6rem 1.5rem !important;
+            border-radius: 50px;
+            font-weight: 600 !important;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-cta::after { display: none !important; }
+
+        .nav-cta:hover {
+            background: #b8985a;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(201, 169, 110, 0.3);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .menu-toggle.active span:nth-child(2) { opacity: 0; }
+        .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 5% 80px;
+            background: var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 80px 80px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 80px 80px; }
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -50%; right: -20%;
+            width: 80%; height: 150%;
+            background: radial-gradient(ellipse, rgba(201, 169, 110, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content { max-width: 640px; }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(201, 169, 110, 0.15);
+            border: 1px solid rgba(201, 169, 110, 0.25);
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s 0.2s ease forwards;
+        }
+
+        .hero-badge svg { width: 16px; height: 16px; color: var(--gold); }
+
+        .hero h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 400;
+            line-height: 1.1;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s 0.4s ease forwards;
+        }
+
+        .hero h1 em { color: var(--gold); font-style: italic; }
+
+        .hero-desc {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.65);
+            margin-bottom: 2.5rem;
+            max-width: 520px;
+            line-height: 1.8;
+            font-weight: 300;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s 0.6s ease forwards;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s 0.8s ease forwards;
+        }
+
+        .btn {
+            padding: 0.9rem 2.25rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: var(--white);
+            box-shadow: 0 4px 20px rgba(201, 169, 110, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #b8985a;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(201, 169, 110, 0.4);
+        }
+
+        .btn-outline {
+            border: 1.5px solid rgba(255,255,255,0.25);
+            color: var(--white);
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn svg { width: 18px; height: 18px; transition: transform 0.3s ease; }
+        .btn:hover svg { transform: translateX(3px); }
+
+        .hero-visual {
+            position: relative;
+            opacity: 0;
+            transform: translateX(40px);
+            animation: fadeInRight 1s 0.6s ease forwards;
+        }
+
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .hero-image-frame {
+            position: relative;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.4);
+        }
+
+        .hero-image-frame::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1px solid rgba(201, 169, 110, 0.2);
+            border-radius: var(--radius-xl);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .hero-image-frame img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            display: block;
+            transition: transform 8s ease;
+        }
+
+        .hero-image-frame:hover img { transform: scale(1.05); }
+
+        .floating-stat {
+            position: absolute;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.25rem 1.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-stat:nth-child(2) { top: -20px; right: -20px; animation-delay: -2s; }
+        .floating-stat:nth-child(3) { bottom: 40px; left: -30px; animation-delay: -4s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .floating-stat-icon {
+            width: 44px; height: 44px;
+            background: rgba(201, 169, 110, 0.15);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .floating-stat-icon svg { width: 22px; height: 22px; color: var(--gold); }
+
+        .floating-stat-text strong {
+            display: block;
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.25rem;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+
+        .floating-stat-text span { font-size: 0.75rem; color: var(--text-light); font-weight: 500; }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            z-index: 2;
+            animation: fadeInUp 1s 1.5s ease forwards;
+            opacity: 0;
+        }
+
+        .scroll-indicator .mouse {
+            width: 22px; height: 36px;
+            border: 1.5px solid rgba(255,255,255,0.3);
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .scroll-indicator .mouse::after {
+            content: '';
+            position: absolute;
+            top: 6px; left: 50%;
+            transform: translateX(-50%);
+            width: 3px; height: 6px;
+            background: var(--gold);
+            border-radius: 2px;
+            animation: scrollWheel 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollWheel {
+            0%, 100% { opacity: 1; top: 6px; }
+            50% { opacity: 0.3; top: 16px; }
+        }
+
+        /* ===== STATS BAR ===== */
+        .stats-bar {
+            background: var(--white);
+            padding: 4rem 5%;
+            display: flex;
+            justify-content: center;
+            gap: clamp(3rem, 8vw, 6rem);
+            position: relative;
+            z-index: 2;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stat { text-align: center; position: relative; opacity: 0; transform: translateY(20px); }
+        .stat.animated { animation: fadeInUp 0.6s ease forwards; }
+
+        .stat:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: -3rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 50px;
+            background: var(--border);
+        }
+
+        .stat-number {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 500;
+        }
+
+        /* ===== ABOUT SECTION ===== */
+        .about {
+            padding: 8rem 5%;
+            background: var(--light);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-header h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .section-header p {
+            color: var(--text-light);
+            max-width: 500px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.75rem;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .about-image { position: relative; }
+
+        .about-image img {
+            width: 100%;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            display: block;
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: -24px; left: -24px;
+            width: 100%; height: 100%;
+            border: 2px solid var(--gold);
+            border-radius: var(--radius-xl);
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        .about-image::after {
+            content: '';
+            position: absolute;
+            bottom: -20px; right: -20px;
+            width: 120px; height: 120px;
+            background: var(--gold);
+            border-radius: var(--radius-lg);
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .about-text h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(1.5rem, 3vw, 2.25rem);
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+            line-height: 1.3;
+        }
+
+        .about-text p {
+            color: var(--text-light);
+            margin-bottom: 1.25rem;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-top: 2.5rem;
+        }
+
+        .skill-tag {
+            background: var(--white);
+            padding: 0.5rem 1.1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            color: var(--primary);
+            font-weight: 500;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .skill-tag:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        /* ===== SERVICES SECTION ===== */
+        .services {
+            padding: 8rem 5%;
+            background: var(--white);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: var(--light);
+            padding: 2.5rem 2rem;
+            border-radius: var(--radius-lg);
+            transition: var(--transition-slow);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid transparent;
+            cursor: default;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 3px;
+            background: var(--gold);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .service-card:hover::before { transform: scaleX(1); }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--border);
+            background: var(--white);
+        }
+
+        .service-icon {
+            width: 56px; height: 56px;
+            background: rgba(201, 169, 110, 0.12);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .service-card:hover .service-icon { background: var(--gold); }
+
+        .service-icon svg { width: 26px; height: 26px; color: var(--gold); transition: var(--transition); }
+        .service-card:hover .service-icon svg { color: var(--white); }
+
+        .service-card h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.25rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            font-weight: 400;
+        }
+
+        .service-card p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        /* ===== PROJECTS SECTION ===== */
+        .projects {
+            padding: 8rem 5%;
+            background: var(--light);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            height: 420px;
+            cursor: pointer;
+        }
+
+        .project-card img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .project-card:hover img { transform: scale(1.08); }
+
+        .project-overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 2.5rem;
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.7) 50%, transparent 100%);
+            color: var(--white);
+            transform: translateY(60px);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .project-card:hover .project-overlay {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .project-overlay h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+        }
+
+        .project-overlay p {
+            color: rgba(255,255,255,0.75);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .project-tag {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--white);
+            padding: 0.35rem 1rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+        }
+
+        .project-arrow {
+            position: absolute;
+            top: 1.5rem; right: 1.5rem;
+            width: 44px; height: 44px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .project-card:hover .project-arrow { opacity: 1; transform: scale(1); }
+
+        .project-arrow svg { width: 18px; height: 18px; color: var(--primary); }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials {
+            padding: 8rem 5%;
+            background: var(--white);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: var(--light);
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
+            position: relative;
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .testimonial-card:hover {
+            border-color: var(--border);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+        }
+
+        .testimonial-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 3px;
+            background: var(--gold);
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .testimonial-card:hover::before { opacity: 1; }
+
+        .testimonial-quote-icon { margin-bottom: 1.25rem; }
+        .testimonial-quote-icon svg { width: 32px; height: 32px; color: var(--gold); opacity: 0.4; }
+
+        .testimonial-text {
+            font-style: italic;
+            color: var(--text);
+            margin-bottom: 1.75rem;
+            line-height: 1.8;
+            font-size: 0.95rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .author-info h4 { color: var(--primary); font-size: 0.95rem; font-weight: 600; }
+        .author-info p { color: var(--text-light); font-size: 0.8rem; }
+
+        /* ===== CONTACT SECTION ===== */
+        .contact {
+            padding: 8rem 5%;
+            background: var(--primary);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .contact .section-header h2 { color: var(--white); }
+        .contact .section-header p { color: rgba(255,255,255,0.6); }
+        .contact .section-label { color: var(--gold); }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-info h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.75rem;
+            margin-bottom: 2.5rem;
+            font-weight: 400;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-icon {
+            width: 48px; height: 48px;
+            background: rgba(255,255,255,0.08);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+
+        .contact-icon:hover { background: var(--gold); }
+        .contact-icon svg { width: 20px; height: 20px; color: var(--gold); transition: var(--transition); }
+        .contact-icon:hover svg { color: var(--white); }
+
+        .contact-item p { color: rgba(255,255,255,0.7); font-size: 0.95rem; line-height: 1.6; }
+        .contact-item strong { display: block; color: var(--white); font-weight: 600; margin-bottom: 0.25rem; font-size: 0.9rem; }
+
+        .contact-form {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: var(--radius-xl);
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+        }
+
+        .form-group { margin-bottom: 1.25rem; }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text);
+            transition: var(--transition);
+            background: var(--light);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--gold);
+            background: var(--white);
+            box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.1);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder { color: var(--text-muted); }
+
+        .form-group textarea { min-height: 120px; resize: vertical; }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--gold);
+            color: var(--white);
+            border: none;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'DM Sans', sans-serif;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .submit-btn:hover {
+            background: #b8985a;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(201, 169, 110, 0.3);
+        }
+
+        .submit-btn:active { transform: translateY(0); }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #0a0f1a;
+            color: var(--white);
+            padding: 4rem 5% 2rem;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .footer-brand .footer-logo {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            display: block;
+            color: var(--white);
+        }
+
+        .footer-brand p {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            max-width: 300px;
+        }
+
+        .footer-col h4 {
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.25rem;
+        }
+
+        .footer-col a {
+            display: block;
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+            transition: var(--transition);
+        }
+
+        .footer-col a:hover { color: var(--gold); padding-left: 4px; }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-social { display: flex; gap: 0.75rem; }
+
+        .social-icon {
+            width: 40px; height: 40px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .social-icon:hover {
+            background: var(--gold);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        .copyright { color: rgba(255,255,255,0.35); font-size: 0.85rem; }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+                        transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+        .reveal-delay-5 { transition-delay: 0.5s; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .hero-container { grid-template-columns: 1fr; gap: 3rem; text-align: center; }
+            .hero-content { max-width: 100%; }
+            .hero-desc { max-width: 600px; margin-left: auto; margin-right: auto; }
+            .hero-buttons { justify-content: center; }
+            .hero-visual { max-width: 600px; margin: 0 auto; }
+            .about-grid { gap: 3rem; }
+            .contact-grid { gap: 3rem; }
+            .footer-top { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle { display: flex; }
+            .nav-links {
+                position: fixed;
+                top: 0; right: -100%;
+                width: 70%; max-width: 300px;
+                height: 100vh;
+                background: var(--white);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: -10px 0 40px rgba(0,0,0,0.1);
+                padding: 2rem;
+            }
+            .nav-links.active { right: 0; }
+            .nav-links a { font-size: 1rem; }
+            .hero { padding: 100px 5% 60px; }
+            .hero h1 { font-size: 2.25rem; }
+            .hero-desc { font-size: 1rem; }
+            .hero-image-frame img { height: 350px; }
+            .floating-stat { display: none; }
+            .stats-bar { flex-wrap: wrap; gap: 2rem; padding: 3rem 5%; }
+            .stat:not(:last-child)::after { display: none; }
+            .about-grid, .contact-grid { grid-template-columns: 1fr; }
+            .about-image::before, .about-image::after { display: none; }
+            .services-grid, .testimonials-grid { grid-template-columns: 1fr; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .project-card { height: 320px; }
+            .contact-form { padding: 1.5rem; }
+            .footer-top { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
+            .footer-brand p { max-width: 100%; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 1.9rem; }
+            .btn { padding: 0.8rem 1.75rem; font-size: 0.85rem; }
+            .section-header h2 { font-size: 1.75rem; }
+            .about-text h3 { font-size: 1.4rem; }
+            .service-card { padding: 2rem 1.5rem; }
+            .project-overlay { padding: 1.5rem; transform: translateY(0); opacity: 1; }
+            .testimonial-card { padding: 1.75rem; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            html { scroll-behavior: auto; }
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <a href="#home" class="logo">ER. Riasat Ahamed</a>
+        <div class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M2 22h20"/>
+                        <path d="M6 18V9l6-6 6 6v9"/>
+                        <path d="M14 22v-6a2 2 0 0 0-4 0v6"/>
+                    </svg>
+                    Building Planner & Structural Engineer
+                </div>
+                <h1>Designing Structures That <em>Stand the Test of Time</em></h1>
+                <p class="hero-desc">With over 7 years of experience in building planning and structural engineering, I transform architectural visions into safe, sustainable, and stunning realities.</p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">
+                        View My Work
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14"/>
+                            <path d="m12 5 7 7-7 7"/>
+                        </svg>
+                    </a>
+                    <a href="#contact" class="btn btn-outline">
+                        Get In Touch
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14"/>
+                            <path d="m12 5 7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-image-frame">
+                    <img src="Logo aa.jpeg" alt="ER. Riasat Ahamed - Structural Engineer">
+                </div>
+                <div class="floating-stat">
+                    <div class="floating-stat-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M2 22h20"/>
+                            <path d="M6 18V9l6-6 6 6v9"/>
+                            <path d="M14 22v-6a2 2 0 0 0-4 0v6"/>
+                        </svg>
+                    </div>
+                    <div class="floating-stat-text">
+                        <strong>150+</strong>
+                        <span>Projects Done</span>
+                    </div>
+                </div>
+                <div class="floating-stat">
+                    <div class="floating-stat-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                    </div>
+                    <div class="floating-stat-text">
+                        <strong>100%</strong>
+                        <span>Client Satisfaction</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="mouse"></div>
+            <span>Scroll</span>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar" id="statsBar">
+        <div class="stat">
+            <div class="stat-number">150+</div>
+            <div class="stat-label">Projects Completed</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">7+</div>
+            <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">100+</div>
+            <div class="stat-label">Plans Sanctioned</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Client Satisfaction</div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="section-header">
+            <span class="section-label">About Me</span>
+            <h2>Passionate about creating structures that blend innovation with safety</h2>
+        </div>
+        <div class="about-grid">
+            <div class="about-image reveal">
+                <img src="Me.png" alt="ER. Riasat Ahamed">
+            </div>
+            <div class="about-text reveal reveal-delay-2">
+                <h3>Bridging Vision & Engineering Excellence</h3>
+                <p>I am a structural engineer and building planning consultant with a passion for creating structures that are not only safe and functional but also aesthetically remarkable. My approach combines rigorous engineering principles with creative problem-solving.</p>
+                <p>From residential complexes to commercial high-rises, I have led structural design and planning for projects across multiple cities, ensuring each structure meets the highest standards of safety, sustainability, and innovation.</p>
+                <div class="skills">
+                    <span class="skill-tag">AutoCAD</span>
+                    <span class="skill-tag">STAAD Pro</span>
+                    <span class="skill-tag">ETABS</span>
+                    <span class="skill-tag">RCDC</span>
+                    <span class="skill-tag">SAFE</span>
+                    <span class="skill-tag">SketchUp</span>
+                    <span class="skill-tag">D5 Render</span>
+                    <span class="skill-tag">V-Ray</span>
+                    <span class="skill-tag">Pile Design</span>
+                    <span class="skill-tag">Seismic Design</span>
+                    <span class="skill-tag">Project Management</span>
+                    <span class="skill-tag">Green Building</span>
+                    <span class="skill-tag">Architecture</span>
+                    <span class="skill-tag">IS Codes</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="section-header">
+            <span class="section-label">What I Do</span>
+            <h2>Comprehensive structural and planning solutions for every project</h2>
+        </div>
+        <div class="services-grid">
+            <div class="service-card reveal">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m3 21 18-18"/>
+                        <path d="m15 6 3 3"/>
+                        <path d="m9 3 3 3"/>
+                        <path d="m18 9 3 3"/>
+                        <path d="m8 21 3-3"/>
+                        <path d="m12 21 3-3"/>
+                        <path d="m3 8 3 3"/>
+                        <path d="m3 12 3 3"/>
+                        <path d="m3 16 3 3"/>
+                    </svg>
+                </div>
+                <h3>Building Planning and Sanction</h3>
+                <p>Strategic building planning that optimizes space utilization, flow, and functionality while adhering to zoning regulations and building codes and sanction of plans.</p>
+            </div>
+
+            <div class="service-card reveal reveal-delay-1">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M2 22h20"/>
+                        <path d="M6 18V9l6-6 6 6v9"/>
+                        <path d="M14 22v-6a2 2 0 0 0-4 0v6"/>
+                        <path d="M10 6H8"/>
+                        <path d="M16 6h-2"/>
+                    </svg>
+                </div>
+                <h3>Structural Design</h3>
+                <p>Complete structural analysis and design for buildings, bridges, and special structures using advanced engineering software and methodologies.</p>
+            </div>
+
+            <div class="service-card reveal reveal-delay-2">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="m21 21-4.3-4.3"/>
+                        <path d="M11 8v6"/>
+                        <path d="M8 11h6"/>
+                    </svg>
+                </div>
+                <h3>Structural Assessment</h3>
+                <p>Detailed structural inspections and assessments for existing buildings to evaluate safety, integrity, and compliance with current codes.</p>
+            </div>
+
+            <div class="service-card reveal">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        <path d="m9 12 2 2 4-4"/>
+                    </svg>
+                </div>
+                <h3>Sustainable Design</h3>
+                <p>Eco-friendly structural solutions that minimize environmental impact while maximizing energy efficiency and long-term sustainability.</p>
+            </div>
+
+            <div class="service-card reveal reveal-delay-1">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                    </svg>
+                </div>
+                <h3>Seismic Engineering</h3>
+                <p>Advanced seismic analysis and design to ensure earthquake-resistant structures that protect lives and property during seismic events.</p>
+            </div>
+
+            <div class="service-card reveal reveal-delay-2">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <path d="M14 2v6h6"/>
+                        <path d="M16 13H8"/>
+                        <path d="M16 17H8"/>
+                        <path d="M10 9H8"/>
+                    </svg>
+                </div>
+                <h3>Project Consulting</h3>
+                <p>Expert consulting from feasibility studies to construction supervision, ensuring every phase of your project meets the highest standards.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <div class="section-header">
+            <span class="section-label">Portfolio</span>
+            <h2>Featured Projects</h2>
+            <p>A selection of structural engineering and building planning projects</p>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card reveal">
+                <img src="Elevation.png">
+                <div class="project-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M7 17 17 7"/>
+                        <path d="M7 7h10v10"/>
+                    </svg>
+                </div>
+                <div class="project-overlay">
+                    <span class="project-tag">3D ELEVATION</span>
+                    <h3>20+ 3D ELAVATIONS DELIVERED</h3>
+                    <p>Designed and delivered 20+ custom 3D elevation concepts for residential and commercial clients, combining modern aesthetics with practical architectural solutions.
+Each project was tailored to the client's vision, ensuring realistic visualization, functional design, and attention to every architectural detail.</p>
+                </div>
+            </div>
+
+            <div class="project-card reveal reveal-delay-1">
+                <img src="Structure.jpeg">
+                <div class="project-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M7 17 17 7"/>
+                        <path d="M7 7h10v10"/>
+                    </svg>
+                </div>
+                <div class="project-overlay">
+                    <span class="project-tag">Structural Analysis</span>
+                    <h3>50+ STRUCTRAL ANALYSIS DONE</h3>
+                    <p>Successfully completed 50+ structural analysis and design projects, including dead load, live load, wind load, and earthquake (seismic) analysis for residential and commercial buildings.
+Delivered safe, economical, and code-compliant structural solutions with a focus on stability, durability, and performance.</p>
+                </div>
+            </div>
+
+            <div class="project-card reveal reveal-delay-2">
+                <img src="Floor Plan.png">
+                <div class="project-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M7 17 17 7"/>
+                        <path d="M7 7h10v10"/>
+                    </svg>
+                </div>
+                <div class="project-overlay">
+                    <span class="project-tag">FLOOR PLANS</span>
+                    <h3>70+ FLOOR PLANS DESIGNED</h3>
+                    <p>Delivered 70+ thoughtfully designed floor plans for homes, commercial spaces, and mixed-use developments.
+Combined architectural creativity with practical planning to achieve efficient, comfortable, and buildable layouts.</p>
+                </div>
+            </div>
+
+            <div class="project-card reveal reveal-delay-3">
+                <img src="Site.jpeg">
+                <div class="project-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M7 17 17 7"/>
+                        <path d="M7 7h10v10"/>
+                    </svg>
+                </div>
+                <div class="project-overlay">
+                    <span class="project-tag">SITE SUPERVISION</span>
+                    <h3>25+ SITE SUPERVISION COMLETED</h3>
+                    <p>Led site supervision for 25+ construction projects, ensuring accurate execution of structural and architectural designs.
+Focused on quality assurance, safety, construction coordination, and timely delivery while maintaining engineering excellence.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="section-header">
+            <span class="section-label">Testimonials</span>
+            <h2>What Clients Say</h2>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card reveal">
+                <div class="testimonial-quote-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z"/>
+                    </svg>
+                </div>
+                <p class="testimonial-text">Exceptional structural engineering work. The attention to detail and commitment to safety standards made our project a complete success. Highly recommended for any building planning needs.</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">AR</div>
+                    <div class="author-info">
+                        <h4>Arjun Roy</h4>
+                        <p>Real Estate Developer</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card reveal reveal-delay-1">
+                <div class="testimonial-quote-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z"/>
+                    </svg>
+                </div>
+                <p class="testimonial-text">Professional, knowledgeable, and incredibly thorough. The building plans were approved without any revisions, saving us significant time and resources. Truly a master of the craft.</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">SK</div>
+                    <div class="author-info">
+                        <h4>Suman Kundu</h4>
+                        <p>Construction Contractor</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card reveal reveal-delay-2">
+                <div class="testimonial-quote-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z"/>
+                    </svg>
+                </div>
+                <p class="testimonial-text">From initial planning to final structural approval, the entire process was seamless. The expertise in seismic design gave us complete confidence in our building's safety and longevity.</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">PM</div>
+                    <div class="author-info">
+                        <h4>Priya Mitra</h4>
+                        <p>Architect</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="section-header">
+            <span class="section-label">Get In Touch</span>
+            <h2>Let's Build Something Great</h2>
+            <p>Ready to start your next project? Get in touch today.</p>
+        </div>
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <path d="m22 6-10 7L2 6"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <strong>Email</strong>
+                        <p>riasatahamed007@gmail.com</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <strong>Phone</strong>
+                        <p>82504-86545</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <strong>Office</strong>
+                        <p>Sahabajpur, Kaliachak<br>Malda, 732201</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 6v6l4 2"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <strong>Working Hours</strong>
+                        <p>Mon - Sat: 9:00 AM - 6:00 PM</p>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <form id="enquiryForm">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Contact Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="projectType">Project Type</label>
+                        <select id="projectType" name="projectType" required>
+                            <option value="" disabled selected>Select project type</option>
+                            <option value="Residential">Residential</option>
+                            <option value="Commercial">Commercial</option>
+                            <option value="Industrial">Industrial</option>
+                            <option value="Infrastructure">Infrastructure</option>
+                            <option value="Renovation">Renovation</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" placeholder="Tell me about your project requirements..." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        Send via WhatsApp
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+                            <path d="M5 12h14"/>
+                            <path d="m12 5 7 7-7 7"/>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-top">
+            <div class="footer-brand">
+                <span class="footer-logo">ER. Riasat Ahamed</span>
+                <p>Building Planner & Structural Engineer with 7+ years of experience in creating safe, sustainable, and stunning structures.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navigation</h4>
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-col">
+                <h4>Services</h4>
+                <a href="#services">Building Planning</a>
+                <a href="#services">Structural Design</a>
+                <a href="#services">Seismic Engineering</a>
+                <a href="#services">Project Consulting</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <a href="mailto:riasatahamed007@gmail.com">riasatahamed007@gmail.com</a>
+                <a href="tel:+918250486545">+91 82504-86545</a>
+                <a href="#">Sahabajpur, Kaliachak, Malda</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="copyright">&copy; 2026 Riasat Ahamed. All rights reserved.</p>
+            <div class="footer-social">
+                <a href="#" class="social-icon" aria-label="LinkedIn">in</a>
+                <a href="#" class="social-icon" aria-label="Twitter">X</a>
+                <a href="#" class="social-icon" aria-label="Behance">Be</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ===== NAVBAR SCROLL EFFECT =====
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // ===== MOBILE MENU TOGGLE =====
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // Close mobile menu on link click
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // ===== SMOOTH SCROLLING =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // ===== SCROLL REVEAL ANIMATION =====
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // ===== STATS COUNTER ANIMATION =====
+        const statsBar = document.getElementById('statsBar');
+        const statElements = document.querySelectorAll('.stat');
+        let statsAnimated = false;
+
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !statsAnimated) {
+                    statsAnimated = true;
+                    statElements.forEach((stat, index) => {
+                        setTimeout(() => {
+                            stat.classList.add('animated');
+                        }, index * 150);
+                    });
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        statsObserver.observe(statsBar);
+
+        // ===== WHATSAPP FORM SUBMISSION =====
+        document.getElementById('enquiryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const projectType = document.getElementById('projectType').value;
+            const message = document.getElementById('message').value.trim();
+
+            // WhatsApp number (Indian format: 91 + number)
+            const whatsappNumber = '918250486545';
+
+            // Build the WhatsApp message
+            const whatsappMessage = 
+                '*New Project Enquiry*\n' +
+                '------------------------\n' +
+                '*Name:* ' + name + '\n' +
+                '*Contact:* ' + phone + '\n' +
+                '*Project Type:* ' + projectType + '\n' +
+                '*Message:* ' + message + '\n' +
+                '------------------------\n' +
+                '_Sent from your website_';
+
+            // Encode the message for URL
+            const encodedMessage = encodeURIComponent(whatsappMessage);
+
+            // Open WhatsApp (works on both mobile and desktop)
+            const whatsappUrl = 'https://wa.me/' + whatsappNumber + '?text=' + encodedMessage;
+            window.open(whatsappUrl, '_blank');
+        });
+
+        // ===== ACTIVE NAV LINK HIGHLIGHTING =====
+        const sections = document.querySelectorAll('section[id]');
+        const navLinkItems = document.querySelectorAll('.nav-links a[href^="#"]');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinkItems.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
